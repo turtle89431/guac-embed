@@ -1,40 +1,4 @@
-# Moonlight PC
 
-[Moonlight PC](https://moonlight-stream.org) is an open source PC client for NVIDIA GameStream, as used by the NVIDIA Shield.
-
-Moonlight also has mobile versions for [Android](https://github.com/moonlight-stream/moonlight-android) and [iOS](https://github.com/moonlight-stream/moonlight-ios).
-
-You can follow development on our [Discord server](https://moonlight-stream.org/discord) and help translate Moonlight into your language on [Weblate](https://hosted.weblate.org/projects/moonlight/moonlight-qt/).
-
- [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/glj5cxqwy2w3bglv/branch/master?svg=true)](https://ci.appveyor.com/project/cgutman/moonlight-qt/branch/master)
- [![Downloads](https://img.shields.io/github/downloads/moonlight-stream/moonlight-qt/total)](https://github.com/moonlight-stream/moonlight-qt/releases)
- [![Translation Status](https://hosted.weblate.org/widgets/moonlight/-/moonlight-qt/svg-badge.svg)](https://hosted.weblate.org/projects/moonlight/moonlight-qt/)
-
-## Features
- - Hardware accelerated video decoding on Windows, Mac, and Linux
- - Supports streaming at up to 120 FPS (high refresh rate monitor recommended)
- - Supports streaming at 720p, 1080p, 1440p, 4K, and the client PC's native screen resolution
- - HDR streaming support
- - 7.1 surround sound audio support
- - Support for both pointer capture (for games) and direct mouse control (for remote desktop)
- - Support for passing system-wide keyboard shortcuts like Alt+Tab to the host
- - Direct touchscreen mouse control
- - HEVC support for better image quality at reduced bandwidth
- - Gamepad support with force feedback for up to 4 players
- 
-## Downloads
-- [Windows, macOS, and Steam Link](https://github.com/moonlight-stream/moonlight-qt/releases)
-- [Snap (for Ubuntu-based Linux distros)](https://snapcraft.io/moonlight)
-- [Flatpak (for other Linux distros)](https://flathub.org/apps/details/com.moonlight_stream.Moonlight)
-- [AppImage](https://github.com/moonlight-stream/moonlight-qt/releases)
-- [Raspberry Pi 4](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Raspberry-Pi-4)
-- [NVIDIA Jetson and Nintendo Switch (Ubuntu L4T)](https://github.com/moonlight-stream/moonlight-docs/wiki/Installing-Moonlight-Qt-on-Linux4Tegra-(L4T)-Ubuntu)
-
-#### Special Thanks
-
-[![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square)](https://cloudsmith.com)
-
-Hosting for Moonlight's Raspberry Pi and L4T package repositories is graciously provided for free by [Cloudsmith](https://cloudsmith.com).
 
 ## Building
 
@@ -79,9 +43,3 @@ Hosting for Moonlight's Raspberry Pi and L4T package repositories is graciously 
     * To create an embedded build for a single-purpose device, use `qmake "CONFIG+=embedded" moonlight-qt.pro` and build normally.
         * This build will lack windowed mode, Discord/Help links, and other features that don't make sense on an embedded device.
 
-## Contribute
-1. Fork us
-2. Write code
-3. Send Pull Requests
-
-Check out our [website](https://moonlight-stream.org) for project links and information.
