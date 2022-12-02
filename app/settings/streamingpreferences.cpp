@@ -163,13 +163,13 @@ bool StreamingPreferences::retranslate()
     }
 
     if (newTranslator->load(QString(":/languages/qml_") + languageSuffix)) {
-        qInfo() << "Successfully loaded translation for " << languageSuffix;
+        qInfo() << "Successfully loaded translation for" << languageSuffix;
 
         translator = newTranslator;
         QCoreApplication::installTranslator(translator);
     }
     else {
-        qInfo() << "No translation available for " << languageSuffix;
+        qInfo() << "No translation available for" << languageSuffix;
         delete newTranslator;
     }
 
@@ -202,7 +202,7 @@ QString StreamingPreferences::getSuffixFromLanguage(StreamingPreferences::Langua
     case LANG_FR:
         return "fr";
     case LANG_ZH_CN:
-        return "zh_cn";
+        return "zh_CN";
     case LANG_NB_NO:
         return "nb_NO";
     case LANG_RU:
@@ -227,8 +227,8 @@ QString StreamingPreferences::getSuffixFromLanguage(StreamingPreferences::Langua
         return "tr";
     case LANG_UK:
         return "uk";
-    case LANG_ZH_HANT:
-        return "zh_Hant";
+    case LANG_ZH_TW:
+        return "zh_TW";
     case LANG_PT:
         return "pt";
     case LANG_PT_BR:

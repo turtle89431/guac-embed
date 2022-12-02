@@ -56,17 +56,17 @@
     <message>
         <location filename="../gui/CliPair.qml" line="9"/>
         <source>Establishing connection to PC...</source>
-        <translation type="unfinished">Під&apos;єднання до ПК...</translation>
+        <translation>Під&apos;єднання до ПК...</translation>
     </message>
     <message>
         <location filename="../gui/CliPair.qml" line="13"/>
         <source>Pairing... Please enter &apos;%1&apos; on %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>З&apos;єднання... Будь ласка, введіть &apos;%1&apos; на %2.</translation>
     </message>
     <message>
         <location filename="../gui/CliPair.qml" line="85"/>
         <source>Pairing completed successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>З&apos;єднання успішно завершено</translation>
     </message>
 </context>
 <context>
@@ -265,27 +265,27 @@
     <message>
         <location filename="../backend/computermanager.cpp" line="535"/>
         <source>The PIN from the PC didn&apos;t match. Please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>ПІН-код від ПК не збігається. Спробуйте ще раз.</translation>
     </message>
     <message>
         <location filename="../backend/computermanager.cpp" line="539"/>
         <source>You cannot pair while a previous session is still running on the host PC. Quit any running games or reboot the host PC, then try pairing again.</source>
-        <translation type="unfinished">Ви не можете створити пару, доки попередній сеанс не закінчено на хост-ПК. Вийдіть із запущених ігор або перезавантажте хост-ПК, а потім спробуйте створити пару знову.</translation>
+        <translation>Ви не можете створити пару, доки попередній сеанс не закінчено на хост-ПК. Вийдіть із запущених ігор або перезавантажте хост-ПК, а потім спробуйте створити пару знову.</translation>
     </message>
     <message>
         <location filename="../backend/computermanager.cpp" line="542"/>
         <source>Pairing failed. Please try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>З&apos;єднання не вдалося. Спробуйте ще раз.</translation>
     </message>
     <message>
         <location filename="../backend/computermanager.cpp" line="546"/>
         <source>Another pairing attempt is already in progress.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ще одна спроба з&apos;єднатися вже триває.</translation>
     </message>
     <message>
         <location filename="../backend/computermanager.cpp" line="556"/>
         <source>GeForce Experience returned error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка GeForce Experience: %1</translation>
     </message>
 </context>
 <context>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../cli/pair.cpp" line="80"/>
         <source>%1 is already paired</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 вже з&apos;єднано</translation>
     </message>
     <message>
         <source>You cannot pair while a previous session is still running on the host PC. Quit any running games or reboot the host PC, then try pairing again.</source>
@@ -334,7 +334,35 @@
     <message>
         <location filename="../cli/listapps.cpp" line="99"/>
         <source>Computer %1 has not been paired. Please open Moonlight to pair before retrieving games list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Комп&apos;ютер %1 не було з&apos;єднано. Будь ласка, запустіть Moonlight для з&apos;єднання перед тим, як отримати список ігор.</translation>
+    </message>
+</context>
+<context>
+    <name>QPlatformTheme</name>
+    <message>
+        <location filename="../main.cpp" line="535"/>
+        <source>&amp;Yes</source>
+        <translation>Т&amp;ак</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="536"/>
+        <source>&amp;No</source>
+        <translation>&amp;Ні</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="537"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="538"/>
+        <source>Help</source>
+        <translation>Довідка</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="539"/>
+        <source>Cancel</source>
+        <translation>Скасувати</translation>
     </message>
 </context>
 <context>
@@ -352,162 +380,162 @@
         <translation type="vanished">Kein Videosignal vom Host empfangen. Prüfe die Host Firewall und Portweiterleitungsregeln.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="91"/>
+        <location filename="../streaming/session.cpp" line="105"/>
         <source>No video received from host.</source>
         <translation>Відео трансляцію не було отримано від хост-ПК.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="92"/>
+        <location filename="../streaming/session.cpp" line="106"/>
         <source>Check your firewall and port forwarding rules for port(s): %1</source>
         <translation>Перевірте ваш брандмауер та правила відкриття наступних портів: %1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="97"/>
+        <location filename="../streaming/session.cpp" line="111"/>
         <source>Your network connection isn&apos;t performing well. Reduce your video bitrate setting or try a faster connection.</source>
         <translation>Ваша мережа не справляється. Зменшіть бітрейт або спробуйте швидшу мережу.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="103"/>
+        <location filename="../streaming/session.cpp" line="117"/>
         <source>Something went wrong on your host PC when starting the stream.</source>
         <translation>Щось пішло не так під час запуску трансляції на хост-ПК.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="104"/>
+        <location filename="../streaming/session.cpp" line="118"/>
         <source>Make sure you don&apos;t have any DRM-protected content open on your host PC. You can also try restarting your host PC.</source>
         <translation>Переконайтеся, що на вашому хост-ПК не відкрито вміст, захищений DRM. Ви також можете спробувати перезавантажити хост-ПК.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="105"/>
+        <location filename="../streaming/session.cpp" line="119"/>
         <source>If the issue persists, try reinstalling your GPU drivers and GeForce Experience.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="116"/>
+        <location filename="../streaming/session.cpp" line="130"/>
         <source>Connection terminated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="661"/>
+        <location filename="../streaming/session.cpp" line="675"/>
         <source>The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.</source>
         <translation type="unfinished">Ця версія GeForce Experience на %1 не підтримується цією збіркою MoonLight.Будь ласка оновіть Moonlight щоб транслювати з %1.</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="666"/>
+        <location filename="../streaming/session.cpp" line="680"/>
         <source>Your selection to enable remote desktop mouse mode may cause problems in games.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="671"/>
+        <location filename="../streaming/session.cpp" line="685"/>
         <source>HDR is not supported with software decoding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="675"/>
+        <location filename="../streaming/session.cpp" line="689"/>
         <source>Your settings selection to force software decoding may cause poor streaming performance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="680"/>
+        <location filename="../streaming/session.cpp" line="694"/>
         <source>Using unsupported FPS options may cause stuttering or lag.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="683"/>
+        <location filename="../streaming/session.cpp" line="697"/>
         <source>V-sync will be disabled when streaming at a higher frame rate than the display.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="710"/>
+        <location filename="../streaming/session.cpp" line="724"/>
         <source>Using software decoding due to your selection to force HEVC without GPU support. This may cause poor streaming performance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="693"/>
+        <location filename="../streaming/session.cpp" line="707"/>
         <source>Your host PC GPU doesn&apos;t support HEVC. A GeForce GTX 900-series (Maxwell) or later GPU is required for HEVC streaming.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="110"/>
+        <location filename="../streaming/session.cpp" line="124"/>
         <source>The host PC reported a fatal video encoding error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="111"/>
+        <location filename="../streaming/session.cpp" line="125"/>
         <source>Try disabling HDR mode, changing the streaming resolution, or changing your host PC&apos;s display resolution.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="724"/>
+        <location filename="../streaming/session.cpp" line="738"/>
         <source>Using software decoding due to your selection to force H.264 without GPU support. This may cause poor streaming performance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="734"/>
+        <location filename="../streaming/session.cpp" line="748"/>
         <source>Your host PC and client PC don&apos;t support the same video codecs. This may cause poor streaming performance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="737"/>
+        <location filename="../streaming/session.cpp" line="751"/>
         <source>Your client GPU doesn&apos;t support H.264 decoding. This may cause poor streaming performance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="748"/>
+        <location filename="../streaming/session.cpp" line="762"/>
         <source>Your host PC GPU doesn&apos;t support HDR streaming. A GeForce GTX 1000-series (Pascal) or later GPU is required for HDR streaming.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="757"/>
+        <location filename="../streaming/session.cpp" line="771"/>
         <source>This PC&apos;s GPU doesn&apos;t support HEVC Main10 decoding for HDR streaming.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="770"/>
+        <location filename="../streaming/session.cpp" line="784"/>
         <source>GeForce Experience 3.0 or higher is required for 4K streaming.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="785"/>
+        <location filename="../streaming/session.cpp" line="799"/>
         <source>Your selected surround sound setting is not supported by the current audio device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="792"/>
+        <location filename="../streaming/session.cpp" line="806"/>
         <source>Failed to open audio device. Audio will be unavailable during this session.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="797"/>
+        <location filename="../streaming/session.cpp" line="811"/>
         <source>An attached gamepad has no mapping and won&apos;t be usable. Visit the Moonlight help to resolve this.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="810"/>
+        <location filename="../streaming/session.cpp" line="824"/>
         <source>Your host PC&apos;s GPU doesn&apos;t support streaming video resolutions over 4K.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="814"/>
+        <location filename="../streaming/session.cpp" line="828"/>
         <source>Video resolutions over 4K are only supported by the HEVC codec.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="828"/>
+        <location filename="../streaming/session.cpp" line="842"/>
         <source>Your selection to force hardware decoding cannot be satisfied due to missing hardware decoding support on this PC&apos;s GPU.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="831"/>
+        <location filename="../streaming/session.cpp" line="845"/>
         <source>Your codec selection and force hardware decoding setting are not compatible. This PC&apos;s GPU lacks support for decoding your chosen codec.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1176"/>
+        <location filename="../streaming/session.cpp" line="1190"/>
         <source>GeForce Experience returned error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Помилка GeForce Experience: %1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1697"/>
+        <location filename="../streaming/session.cpp" line="1798"/>
         <source>Unable to initialize video decoder. Please check your streaming settings and try again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1082,7 +1110,7 @@
     <message>
         <location filename="../gui/main.qml" line="364"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Довідка</translation>
     </message>
     <message>
         <location filename="../gui/main.qml" line="425"/>

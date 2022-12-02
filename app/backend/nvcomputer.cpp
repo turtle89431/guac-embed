@@ -169,7 +169,7 @@ NvComputer::NvComputer(NvHTTP& http, QString serverInfo)
     // to support dynamic HTTP WAN ports without requiring the user to manually enter the port.
     QString remotePortStr = NvHTTP::getXmlString(serverInfo, "ExternalPort");
     if (remotePortStr.isEmpty() || (this->externalPort = remotePortStr.toUShort()) == 0) {
-        this->externalPort = DEFAULT_HTTP_PORT;
+        this->externalPort = http.httpPort();
     }
 
     QString remoteAddress = NvHTTP::getXmlString(serverInfo, "ExternalIP");
@@ -222,20 +222,27 @@ bool NvComputer::wake() const
         Q_ASSERT(wolPayload.count() == 102);
     }
 
-    const quint16 WOL_PORTS[] = {
+    // Ports used as-is
+    const quint16 STATIC_WOL_PORTS[] = {
         9, // Standard WOL port (privileged port)
-        47998, 47999, 48000, 48002, 48010, // Ports opened by GFE
         47009, // Port opened by Moonlight Internet Hosting Tool for WoL (non-privileged port)
+    };
+
+    // Ports offset by the HTTP base port for hosts using alternate ports
+    const quint16 DYNAMIC_WOL_PORTS[] = {
+        47998, 47999, 48000, 48002, 48010, // Ports opened by GFE
     };
 
     // Add the addresses that we know this host to be
     // and broadcast addresses for this link just in
     // case the host has timed out in ARP entries.
-    QVector<QString> addressList;
+    QMap<QString, quint16> addressMap;
+    QSet<quint16> basePortSet;
     for (const NvAddress& addr : uniqueAddresses()) {
-        addressList.append(addr.address());
+        addressMap.insert(addr.address(), addr.port());
+        basePortSet.insert(addr.port());
     }
-    addressList.append("255.255.255.255");
+    addressMap.insert("255.255.255.255", 0);
 
     // Try to broadcast on all available NICs
     for (const QNetworkInterface& nic : QNetworkInterface::allInterfaces()) {
@@ -254,22 +261,22 @@ bool NvComputer::wake() const
 
             // Skip IPv6 which doesn't support broadcast
             if (!addr.broadcast().isNull()) {
-                addressList.append(addr.broadcast().toString());
+                addressMap.insert(addr.broadcast().toString(), 0);
             }
         }
 
         if (!allNodesMulticast.scopeId().isEmpty()) {
-            addressList.append(allNodesMulticast.toString());
+            addressMap.insert(allNodesMulticast.toString(), 0);
         }
     }
 
     // Try all unique address strings or host names
     bool success = false;
-    for (QString& addressString : addressList) {
-        QHostInfo hostInfo = QHostInfo::fromName(addressString);
+    for (auto i = addressMap.constBegin(); i != addressMap.constEnd(); i++) {
+        QHostInfo hostInfo = QHostInfo::fromName(i.key());
 
         if (hostInfo.error() != QHostInfo::NoError) {
-            qWarning() << "Error resolving" << addressString << ":" << hostInfo.errorString();
+            qWarning() << "Error resolving" << i.key() << ":" << hostInfo.errorString();
             continue;
         }
 
@@ -277,8 +284,8 @@ bool NvComputer::wake() const
         for (QHostAddress& address : hostInfo.addresses()) {
             QUdpSocket sock;
 
-            // Send to all ports
-            for (quint16 port : WOL_PORTS) {
+            // Send to all static ports
+            for (quint16 port : STATIC_WOL_PORTS) {
                 if (sock.writeDatagram(wolPayload, address, port)) {
                     qInfo().nospace().noquote() << "Sent WoL packet to " << name << " via " << address.toString() << ":" << port;
                     success = true;
@@ -287,13 +294,38 @@ bool NvComputer::wake() const
                     qWarning() << "Send failed:" << sock.error();
                 }
             }
+
+            QList<quint16> basePorts;
+            if (i.value() != 0) {
+                // If we have a known base port for this address, use only that port
+                basePorts.append(i.value());
+            }
+            else {
+                // If this is a broadcast address without a known HTTP port, try all of them
+                basePorts.append(basePortSet.values());
+            }
+
+            // Send to all dynamic ports using the HTTP port offset(s) for this address
+            for (quint16 basePort : basePorts) {
+                for (quint16 port : DYNAMIC_WOL_PORTS) {
+                    port = (port - 47989) + basePort;
+
+                    if (sock.writeDatagram(wolPayload, address, port)) {
+                        qInfo().nospace().noquote() << "Sent WoL packet to " << name << " via " << address.toString() << ":" << port;
+                        success = true;
+                    }
+                    else {
+                        qWarning() << "Send failed:" << sock.error();
+                    }
+                }
+            }
         }
     }
 
     return success;
 }
 
-bool NvComputer::isReachableOverVpn() const
+NvComputer::ReachabilityType NvComputer::getActiveAddressReachability() const
 {
     NvAddress copyOfActiveAddress;
 
@@ -301,7 +333,7 @@ bool NvComputer::isReachableOverVpn() const
         QReadLocker readLocker(&lock);
 
         if (activeAddress.isNull()) {
-            return false;
+            return ReachabilityType::RI_UNKNOWN;
         }
 
         // Grab a copy of the active address to avoid having to hold
@@ -332,48 +364,55 @@ bool NvComputer::isReachableOverVpn() const
                     if (nic.type() == QNetworkInterface::Virtual ||
                             nic.type() == QNetworkInterface::Ppp) {
                         // Treat PPP and virtual interfaces as likely VPNs
-                        return true;
+                        return ReachabilityType::RI_VPN;
                     }
 
                     if (nic.maximumTransmissionUnit() != 0 && nic.maximumTransmissionUnit() < 1500) {
                         // Treat MTUs under 1500 as likely VPNs
-                        return true;
+                        return ReachabilityType::RI_VPN;
                     }
 #endif
 
                     if (nic.flags() & QNetworkInterface::IsPointToPoint) {
                         // Treat point-to-point links as likely VPNs.
                         // This check detects OpenVPN on Unix-like OSes.
-                        return true;
+                        return ReachabilityType::RI_VPN;
                     }
 
                     if (nic.hardwareAddress().startsWith("00:FF", Qt::CaseInsensitive)) {
                         // OpenVPN TAP interfaces have a MAC address starting with 00:FF on Windows
-                        return true;
+                        return ReachabilityType::RI_VPN;
                     }
 
                     if (nic.humanReadableName().startsWith("ZeroTier")) {
                         // ZeroTier interfaces always start with "ZeroTier"
-                        return true;
+                        return ReachabilityType::RI_VPN;
                     }
 
                     if (nic.humanReadableName().contains("VPN")) {
-                        // This one is just a final heuristic if all else fails
-                        return true;
+                        // This one is just a final VPN heuristic if all else fails
+                        return ReachabilityType::RI_VPN;
                     }
 
-                    // Didn't meet any of our VPN heuristics
-                    return false;
+                    // Didn't meet any of our VPN heuristics. Let's see if it's on-link.
+                    Q_ASSERT(addr.prefixLength() >= 0);
+                    if (addr.prefixLength() >= 0 && s.localAddress().isInSubnet(addr.ip(), addr.prefixLength())) {
+                        return ReachabilityType::RI_LAN;
+                    }
+
+                    // Default to unknown if nothing else matched
+                    return ReachabilityType::RI_UNKNOWN;
                 }
             }
         }
 
         qWarning() << "No match found for address:" << s.localAddress();
-        return false;
+        return ReachabilityType::RI_UNKNOWN;
     }
     else {
         // If we fail to connect, just pretend that it's not a VPN
-        return false;
+        qWarning() << "Unable to check for reachability within 3 seconds";
+        return ReachabilityType::RI_UNKNOWN;
     }
 }
 

@@ -103,7 +103,7 @@ unix:!macx {
     }
 
     packagesExist(wayland-client) {
-        DEFINES += HAS_WAYLAND
+        CONFIG += wayland
         PKGCONFIG += wayland-client
     }
 
@@ -212,15 +212,13 @@ ffmpeg {
     SOURCES += \
         streaming/video/ffmpeg.cpp \
         streaming/video/ffmpeg-renderers/sdlvid.cpp \
-        streaming/video/ffmpeg-renderers/pacer/pacer.cpp \
-        streaming/video/ffmpeg-renderers/pacer/nullthreadedvsyncsource.cpp
+        streaming/video/ffmpeg-renderers/pacer/pacer.cpp
 
     HEADERS += \
         streaming/video/ffmpeg.h \
         streaming/video/ffmpeg-renderers/renderer.h \
         streaming/video/ffmpeg-renderers/sdlvid.h \
-        streaming/video/ffmpeg-renderers/pacer/pacer.h \
-        streaming/video/ffmpeg-renderers/pacer/nullthreadedvsyncsource.h
+        streaming/video/ffmpeg-renderers/pacer/pacer.h
 }
 libva {
     message(VAAPI renderer selected)
@@ -348,13 +346,20 @@ embedded {
 
     DEFINES += EMBEDDED_BUILD
 }
+wayland {
+    message(Wayland extensions enabled)
+
+    DEFINES += HAS_WAYLAND
+    SOURCES += streaming/video/ffmpeg-renderers/pacer/waylandvsyncsource.cpp
+    HEADERS += streaming/video/ffmpeg-renderers/pacer/waylandvsyncsource.h
+}
 
 RESOURCES += \
     resources.qrc \
     qml.qrc
 
 TRANSLATIONS += \
-    languages/qml_zh_cn.ts \
+    languages/qml_zh_CN.ts \
     languages/qml_de.ts \
     languages/qml_fr.ts \
     languages/qml_nb_NO.ts \
@@ -369,7 +374,7 @@ TRANSLATIONS += \
     languages/qml_sv.ts \
     languages/qml_tr.ts \
     languages/qml_uk.ts \
-    languages/qml_zh_Hant.ts \
+    languages/qml_zh_TW.ts \
     languages/qml_el.ts \
     languages/qml_hi.ts \
     languages/qml_it.ts \
